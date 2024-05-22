@@ -1,4 +1,4 @@
-package com.tumbwe.pathventure.controller;
+package com.tumbwe.examandclassattendanceapi.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;

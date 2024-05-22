@@ -1,7 +1,7 @@
-package com.tumbwe.pathventure.config;
+package com.tumbwe.examandclassattendanceapi.config;
 
 
-import com.tumbwe.pathventure.model.User;
+import com.tumbwe.examandclassattendanceapi.model.User;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;

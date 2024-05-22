@@ -1,7 +1,7 @@
-package com.tumbwe.pathventure.service;
+package com.tumbwe.examandclassattendanceapi.service;
 
 
-import com.tumbwe.pathventure.repository.UserRepository;
+import com.tumbwe.examandclassattendanceapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

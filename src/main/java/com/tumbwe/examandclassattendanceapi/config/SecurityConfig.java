@@ -1,8 +1,8 @@
-package com.tumbwe.pathventure.config;
+package com.tumbwe.examandclassattendanceapi.config;
 
-import com.tumbwe.pathventure.filter.JwtAuthenticationFilter;
-import com.tumbwe.pathventure.service.JwtService;
-import com.tumbwe.pathventure.service.UserDetailServiceImpl;
+import com.tumbwe.examandclassattendanceapi.filter.JwtAuthenticationFilter;
+import com.tumbwe.examandclassattendanceapi.service.JwtService;
+import com.tumbwe.examandclassattendanceapi.service.UserDetailServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

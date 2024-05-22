@@ -1,7 +1,7 @@
-package com.tumbwe.pathventure.service;
+package com.tumbwe.examandclassattendanceapi.service;
 
-import com.tumbwe.pathventure.model.Verification;
-import com.tumbwe.pathventure.repository.VerificationRepository;
+import com.tumbwe.examandclassattendanceapi.model.Verification;
+import com.tumbwe.examandclassattendanceapi.repository.VerificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

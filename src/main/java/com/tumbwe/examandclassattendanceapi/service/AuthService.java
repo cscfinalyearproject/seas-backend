@@ -1,12 +1,12 @@
-package com.tumbwe.pathventure.service;
+package com.tumbwe.examandclassattendanceapi.service;
 
-import com.tumbwe.pathventure.config.EmailSender;
-import com.tumbwe.pathventure.model.*;
-import com.tumbwe.pathventure.repository.AccountRepository;
-import com.tumbwe.pathventure.repository.UserRepository;
-import com.tumbwe.pathventure.repository.VerificationRepository;
-import com.tumbwe.pathventure.request.RegisterUser;
-import com.tumbwe.pathventure.response.RegisterResponse;
+import com.tumbwe.examandclassattendanceapi.config.EmailSender;
+import com.tumbwe.examandclassattendanceapi.model.*;
+import com.tumbwe.examandclassattendanceapi.repository.AccountRepository;
+import com.tumbwe.examandclassattendanceapi.repository.UserRepository;
+import com.tumbwe.examandclassattendanceapi.repository.VerificationRepository;
+import com.tumbwe.examandclassattendanceapi.request.RegisterUser;
+import com.tumbwe.examandclassattendanceapi.response.RegisterResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

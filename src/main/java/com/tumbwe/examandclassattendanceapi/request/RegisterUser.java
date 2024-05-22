@@ -1,4 +1,4 @@
-package com.tumbwe.pathventure.request;
+package com.tumbwe.examandclassattendanceapi.request;
 
 import lombok.Getter;
 import lombok.Setter;

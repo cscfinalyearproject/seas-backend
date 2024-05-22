@@ -1,4 +1,4 @@
-package com.tumbwe.pathventure.model;
+package com.tumbwe.examandclassattendanceapi.model;
 
 public enum Role {
     USER,

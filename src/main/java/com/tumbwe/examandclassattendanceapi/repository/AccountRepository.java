@@ -1,6 +1,6 @@
-package com.tumbwe.pathventure.repository;
+package com.tumbwe.examandclassattendanceapi.repository;
 
-import com.tumbwe.pathventure.model.Account;
+import com.tumbwe.examandclassattendanceapi.model.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

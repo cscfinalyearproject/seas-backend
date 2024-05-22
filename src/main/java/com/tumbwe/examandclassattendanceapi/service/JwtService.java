@@ -1,6 +1,6 @@
-package com.tumbwe.pathventure.service;
+package com.tumbwe.examandclassattendanceapi.service;
 
-import com.tumbwe.pathventure.model.User;
+import com.tumbwe.examandclassattendanceapi.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;

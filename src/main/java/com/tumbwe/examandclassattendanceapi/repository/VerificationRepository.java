@@ -1,7 +1,7 @@
-package com.tumbwe.pathventure.repository;
+package com.tumbwe.examandclassattendanceapi.repository;
 
-import com.tumbwe.pathventure.model.User;
-import com.tumbwe.pathventure.model.Verification;
+import com.tumbwe.examandclassattendanceapi.model.User;
+import com.tumbwe.examandclassattendanceapi.model.Verification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

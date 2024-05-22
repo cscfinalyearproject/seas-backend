@@ -1,10 +1,10 @@
-package com.tumbwe.pathventure.controller;
+package com.tumbwe.examandclassattendanceapi.controller;
 
-import com.tumbwe.pathventure.model.AuthenticationResponse;
-import com.tumbwe.pathventure.model.User;
-import com.tumbwe.pathventure.request.RegisterUser;
-import com.tumbwe.pathventure.response.RegisterResponse;
-import com.tumbwe.pathventure.service.AuthService;
+import com.tumbwe.examandclassattendanceapi.model.AuthenticationResponse;
+import com.tumbwe.examandclassattendanceapi.model.User;
+import com.tumbwe.examandclassattendanceapi.request.RegisterUser;
+import com.tumbwe.examandclassattendanceapi.response.RegisterResponse;
+import com.tumbwe.examandclassattendanceapi.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
