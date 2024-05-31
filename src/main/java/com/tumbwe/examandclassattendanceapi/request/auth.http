@@ -1,0 +1,27 @@
+POST http://localhost:8080/api/v1/auth/register
+Content-Type: application/json
+
+{
+    "phoneNumber": "ii",
+   "fullName": "ful",
+  "email": "gomagiftk01@gmail.com",
+  "biography": "we the gods",
+  "password": "P@ssw0rd!",
+  "role": "ADMIN"
+}
+
+
+
+### login
+POST {{host}}/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "gomagiftk01@gmail.com",
+  "password": "$10$BymKlx86EQZWOZGrF2JMpOC7pSzO6sSzc9ml1ZJPetGGJRG./rNo2"
+}
+
+### get
+GET {{host}}/hello
+
+
