@@ -1,4 +1,4 @@
-package com.tumbwe.examandclassattendanceapi.service;
+package com.tumbwe.examandclassattendanceapi.service.Impl;
 
 import com.tumbwe.examandclassattendanceapi.config.EmailSender;
 import com.tumbwe.examandclassattendanceapi.model.*;
@@ -37,7 +37,7 @@ public class AuthService {
         user.setUsername(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(Role.valueOf(request.getRole()));
-        user.setIsVerified(false);
+        user.setIsVerified(true);
 
         Optional<User> existingUser = userRepository.findByUsername(request.getEmail());
         if (!isValidPassword(request.getPassword())){
@@ -58,18 +58,18 @@ public class AuthService {
         Account account1 = accountRepository.save(account);
 
 
-
-        Verification verification = new Verification();
-        verification.setUser(user);
-        verification.setExpiryTime(verificationService.getExpiration());
-        String token = verificationService.generateToken();
-
-        verification.setOtp(token);
-        verificationRepository.save(verification);
+//
+//        Verification verification = new Verification();
+//        verification.setUser(user);
+//        verification.setExpiryTime(verificationService.getExpiration());
+//        String token = verificationService.generateToken();
+//
+//        verification.setOtp(token);
+//        verificationRepository.save(verification);
 
         user.setAccount(account1);
         User savedUser = userRepository.save(user);
-        emailSender.sendReservation(user,token);
+//        emailSender.sendReservation(user,token);
 
         RegisterResponse registerResponse = new RegisterResponse();
         registerResponse.setName(savedUser.getUsername());

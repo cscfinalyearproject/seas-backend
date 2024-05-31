@@ -1,7 +1,7 @@
 package com.tumbwe.examandclassattendanceapi.filter;
 
-import com.tumbwe.examandclassattendanceapi.service.JwtService;
-import com.tumbwe.examandclassattendanceapi.service.UserDetailServiceImpl;
+import com.tumbwe.examandclassattendanceapi.service.Impl.JwtService;
+import com.tumbwe.examandclassattendanceapi.service.Impl.UserDetailServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

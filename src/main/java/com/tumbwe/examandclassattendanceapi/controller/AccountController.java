@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin("*")
 public class AccountController {
-    @GetMapping("/")
-    public ResponseEntity<?> index(){
+    @GetMapping("/hello")
+    public ResponseEntity<String> index(){
         return ResponseEntity.ok("Hello World");
     }
 }
