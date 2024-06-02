@@ -1,4 +1,4 @@
 package com.tumbwe.examandclassattendanceapi.service;
 
-public interface StudentService {
+public interface StudentService   {
 }

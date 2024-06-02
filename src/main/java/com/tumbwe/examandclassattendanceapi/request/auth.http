@@ -1,4 +1,4 @@
-POST http://localhost:8080/api/v1/auth/register
+POST http://localhost:8088/api/v1/auth/register
 Content-Type: application/json
 
 {
@@ -21,7 +21,23 @@ Content-Type: application/json
   "password": "$10$BymKlx86EQZWOZGrF2JMpOC7pSzO6sSzc9ml1ZJPetGGJRG./rNo2"
 }
 
+### start session
+POST http://localhost:8088/api/v1/attendance/start?courseCode=csc2100&attendanceType=TUTORIAL
+
 ### get
-GET {{host}}/hello
+GET http://localhost:8088/api/v1/attendance/hello
+
+### mark attendance
+POST http://localhost:8088/api/v1/attendance/mark-attendance
+Content-Type: application/json
+
+{
+  "courseCode": "csc2100",
+  "attendanceType": "TUTORIAL",
+  "studentPrints": [
+    "OTk4M2ViNDctZWNlYS00NWE4LThmMWMtYjYyZWRkNzViZmRh"
+  ]
+
+}
 
 

@@ -18,13 +18,6 @@ public class Student {
 
     @Id
     private String studentId;
-    private String fingerprintTemplate;
+    private byte[] fingerprintTemplate;
 
-    @ManyToMany
-    @JoinTable(
-            name = "student_course",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_code")
-    )
-    private Set<Course> courseList = new HashSet<>();
 }
