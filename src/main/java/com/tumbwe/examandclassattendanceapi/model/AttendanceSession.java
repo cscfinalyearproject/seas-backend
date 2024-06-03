@@ -1,13 +1,9 @@
 package com.tumbwe.examandclassattendanceapi.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.EnableMBeanExport;
-
 import java.time.LocalDate;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity

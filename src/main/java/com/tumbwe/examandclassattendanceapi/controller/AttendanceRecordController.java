@@ -5,7 +5,6 @@ import com.tumbwe.examandclassattendanceapi.model.AttendanceRecord;
 import com.tumbwe.examandclassattendanceapi.model.AttendanceSessionInOut;
 import com.tumbwe.examandclassattendanceapi.model.AttendanceType;
 import com.tumbwe.examandclassattendanceapi.model.Student;
-import com.tumbwe.examandclassattendanceapi.request.AttendanceSessionIn;
 import com.tumbwe.examandclassattendanceapi.service.AttendanceRecordService;
 import com.tumbwe.examandclassattendanceapi.service.AttendanceSessionService;
 import lombok.RequiredArgsConstructor;

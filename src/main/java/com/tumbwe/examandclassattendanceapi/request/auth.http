@@ -12,7 +12,7 @@ Content-Type: application/json
 
 
 ### login
-POST {{host}}/api/v1/auth/login
+POST http://localhost:8088/api/v1/auth/login
 Content-Type: application/json
 
 {
@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ### start session
-POST http://localhost:8088/api/v1/attendance/start?courseCode=csc2100&attendanceType=TUTORIAL
+POST http://localhost:8088/api/v1/attendance/start?courseCode=csc2100&attendanceType=LAB
 
 ### get
 GET http://localhost:8088/api/v1/attendance/hello
