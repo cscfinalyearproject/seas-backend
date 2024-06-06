@@ -19,6 +19,7 @@ public class AttendanceSession {
     @ManyToOne
     @JoinColumn(name = "course_code")
     private Course course;
+    @Enumerated(EnumType.STRING)
     private AttendanceType attendanceType;
     private LocalDate timeStamp;
 
