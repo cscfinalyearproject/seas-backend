@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/seas_backend
-    username: root
-    password: goma
+    url: jdbc:mysql://pathventure.cpe8u2qma1fo.eu-north-1.rds.amazonaws.com:3306/seas
+    username: tumbwe
+    password: tumbwerobert
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
