@@ -1,8 +1,7 @@
 package com.tumbwe.examandclassattendanceapi.config;
 
 import com.tumbwe.examandclassattendanceapi.filter.JwtAuthenticationFilter;
-import com.tumbwe.examandclassattendanceapi.service.JwtService;
-import com.tumbwe.examandclassattendanceapi.service.UserDetailServiceImpl;
+import com.tumbwe.examandclassattendanceapi.service.Impl.UserDetailServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +32,7 @@ public class SecurityConfig {
                         req->req.requestMatchers("/api/v1/auth/**")
                                 .permitAll()
                                 .anyRequest()
-                                .authenticated()
+                                .permitAll()
                 ).userDetailsService(userDetailService)
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

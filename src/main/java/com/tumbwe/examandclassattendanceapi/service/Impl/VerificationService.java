@@ -1,4 +1,4 @@
-package com.tumbwe.examandclassattendanceapi.service;
+package com.tumbwe.examandclassattendanceapi.service.Impl;
 
 import com.tumbwe.examandclassattendanceapi.model.Verification;
 import com.tumbwe.examandclassattendanceapi.repository.VerificationRepository;

@@ -4,11 +4,10 @@ import com.tumbwe.examandclassattendanceapi.model.AuthenticationResponse;
 import com.tumbwe.examandclassattendanceapi.model.User;
 import com.tumbwe.examandclassattendanceapi.request.RegisterUser;
 import com.tumbwe.examandclassattendanceapi.response.RegisterResponse;
-import com.tumbwe.examandclassattendanceapi.service.AuthService;
+import com.tumbwe.examandclassattendanceapi.service.Impl.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,0 +1,42 @@
+POST http://localhost:8088/api/v1/auth/register
+Content-Type: application/json
+
+{
+    "phoneNumber": "ii",
+   "fullName": "ful",
+  "email": "gomagiftk01@gmail.com",
+  "biography": "we the gods",
+  "password": "P@ssw0rd!",
+  "role": "ADMIN"
+}
+
+
+### login
+POST http://localhost:8088/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "gomagiftk01@gmail.com",
+  "password": "$10$BymKlx86EQZWOZGrF2JMpOC7pSzO6sSzc9ml1ZJPetGGJRG./rNo2"
+}
+
+### start session
+POST http://localhost:8088/api/v1/attendance/start?courseCode=csc2100&attendanceType=LAB
+
+### get
+GET http://localhost:8088/api/v1/attendance/hello
+
+### mark attendance
+POST http://localhost:8088/api/v1/attendance/mark-attendance
+Content-Type: application/json
+
+{
+  "courseCode": "csc2100",
+  "attendanceType": "TUTORIAL",
+  "studentPrints": [
+    "OTk4M2ViNDctZWNlYS00NWE4LThmMWMtYjYyZWRkNzViZmRh"
+  ]
+
+}
+
+
