@@ -25,10 +25,10 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build Docker image
-        run: docker build -t seas/seas-backend .
+        run: docker build -t tumbwe/seas-backend .
 
       - name: Publish image to Docker Hub
-        run: docker push seas/seas-backend:latest
+        run: docker push tumbwe/seas-backend:latest
 
   deploy:
     needs: build
@@ -36,13 +36,13 @@ jobs:
 
     steps:
       - name: Pull image from Docker Hub
-        run: docker pull seas/seas-backend:latest
+        run: docker pull tumbwe/seas-backend:latest
 
       - name: Delete old container
         run: docker rm -f seas-api-container || true
 
       - name: Run new container
-        run: docker run -d -p 8080:8080 --name seas-api-container seas/seas-backend
+        run: docker run -d -p 8080:8080 --name seas-api-container tumbwe/seas-backend
 
       #- name: Update dependency graph
       #  uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
