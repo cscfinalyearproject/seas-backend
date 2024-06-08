@@ -24,7 +24,8 @@ public class AttendanceSession {
     @Enumerated(EnumType.STRING)
     private AttendanceType attendanceType;
 
-
+    @Enumerated(EnumType.STRING)
+    private SessionStatus sessionStatus = SessionStatus.open;
     private LocalDate timeStamp;
 
     public AttendanceSession(Course course, AttendanceType attendanceType){
