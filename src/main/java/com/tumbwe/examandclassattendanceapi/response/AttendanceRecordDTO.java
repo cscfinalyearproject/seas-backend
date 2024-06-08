@@ -1,19 +1,23 @@
 package com.tumbwe.examandclassattendanceapi.response;
 
 
+import com.tumbwe.examandclassattendanceapi.model.AttendanceType;
+import lombok.Data;
+
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
+@Data
 public class AttendanceRecordDTO {
-        private String studentId;
+        private  String studentId;
         private String courseCode;
-        private LocalDateTime timestamp;
-        private String attendanceType;
+        private LocalDate timestamp;
+        private AttendanceType attendanceType;
 
-        public AttendanceRecordDTO(String studentId, String courseCode, String attendanceType) {
+        public AttendanceRecordDTO(String studentId, String courseCode, AttendanceType attendanceType) {
             this.studentId = studentId;
             this.courseCode = courseCode;
-            this.timestamp = LocalDateTime.now();
+            this.timestamp = LocalDate.now();
             this.attendanceType = attendanceType;
         }
 

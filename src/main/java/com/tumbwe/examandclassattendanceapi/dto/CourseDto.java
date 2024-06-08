@@ -1,2 +1,14 @@
-package com.tumbwe.examandclassattendanceapi.dto;public class CourseDto {
+package com.tumbwe.examandclassattendanceapi.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class CourseDto {
+    private String courseName;
+    private String courseCode;
+
 }

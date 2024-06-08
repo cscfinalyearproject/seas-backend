@@ -3,6 +3,8 @@ package com.tumbwe.examandclassattendanceapi.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -21,6 +23,8 @@ public class AttendanceSession {
     private Course course;
     @Enumerated(EnumType.STRING)
     private AttendanceType attendanceType;
+
+
     private LocalDate timeStamp;
 
     public AttendanceSession(Course course, AttendanceType attendanceType){
