@@ -1,6 +1,7 @@
 package com.tumbwe.examandclassattendanceapi.service.Impl;
 
 import com.tumbwe.examandclassattendanceapi.dto.CourseDto;
+import com.tumbwe.examandclassattendanceapi.dto.EnrollmentDto;
 import com.tumbwe.examandclassattendanceapi.dto.EnrollmentResponse;
 import com.tumbwe.examandclassattendanceapi.exception.InternalServerException;
 import com.tumbwe.examandclassattendanceapi.exception.ResourceNotFoundException;
@@ -12,6 +13,9 @@ import com.tumbwe.examandclassattendanceapi.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,10 +43,13 @@ public class CourseServiceImpl implements CourseService {
          }
 
     @Override
-    public EnrollmentResponse addStudentToCourse(String studentId, String courseCode) {
-        Course course = courseRepository.findByCourseCode(courseCode).orElseThrow(()
-                -> new ResourceNotFoundException("Course with course code: " + courseCode + " not found"));
-        Student student = studentRepository.findById(studentId).orElseThrow(()-> new ResourceNotFoundException("Student with id: "+ studentId + " not found"));
+    public EnrollmentResponse addStudentToCourse(EnrollmentDto enrollmentDto) {
+        Course course = courseRepository.findByCourseCode(enrollmentDto.getCourseCode()).orElseThrow(()
+                -> new ResourceNotFoundException("Course with course code: " + enrollmentDto.getCourseCode() + " not found"));
+        Student student = studentRepository.findById(enrollmentDto.getStudentId()).orElseThrow(()->
+                new ResourceNotFoundException("Student with id: "+ enrollmentDto.getStudentId() + " not found"));
+        if (course.getEnrolledStudents().contains(student))
+            throw new DataIntegrityViolationException("student with id :" + enrollmentDto.getStudentId() + " already enrolled in course");
         course.getEnrolledStudents().add(student);
         try {
             Course savedCourse = courseRepository.save(course);
@@ -50,9 +57,22 @@ public class CourseServiceImpl implements CourseService {
             return new EnrollmentResponse(student.getStudentId(), savedCourse.getCourseCode(), message);
         }
         catch (Exception e){
-            throw new InternalServerException("Error adding student to course");
+            throw new InternalServerException(e.getMessage());
         }
 
 
     }
+
+    @Override
+    public List<CourseDto> getAllCourses() {
+        List<Course> courses = courseRepository.findAll();
+        if (!courses.isEmpty())
+        return courses.stream().map(course ->
+                new CourseDto(course.getCourseName(), course.getCourseCode())).collect(Collectors.toList());
+
+        else
+            throw new ResourceNotFoundException("Courses not found");
+    }
+
+
 }

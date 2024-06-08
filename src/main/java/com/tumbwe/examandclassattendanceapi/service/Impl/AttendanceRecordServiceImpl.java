@@ -1,6 +1,7 @@
 package com.tumbwe.examandclassattendanceapi.service.Impl;
 
 import com.tumbwe.examandclassattendanceapi.exception.InternalServerException;
+import com.tumbwe.examandclassattendanceapi.exception.ResourceAlreadyExistsException;
 import com.tumbwe.examandclassattendanceapi.exception.ResourceNotFoundException;
 import com.tumbwe.examandclassattendanceapi.model.*;
 import com.tumbwe.examandclassattendanceapi.repository.AttendanceRecordRepository;
@@ -28,6 +29,9 @@ public class AttendanceRecordServiceImpl implements AttendanceRecordService {
         LocalDate date = LocalDate.now();
         AttendanceSession attendanceSession = attendanceSessionRepository.findByCourseCode(courseCode,attendanceType, date)
                                         .orElseThrow(() -> new ResourceNotFoundException("Attendance session not found"));
+        if (attendanceSession.getSessionStatus() == SessionStatus.closed){
+            throw new ResourceAlreadyExistsException("Attendance session for Course with Course Code: " +courseCode + " already closed");
+        }
 
         Set<Student> presentStudents = studentFingerprintsSet
                 .stream()
@@ -48,6 +52,8 @@ public class AttendanceRecordServiceImpl implements AttendanceRecordService {
                               }
         ).map(attendanceRecordRepository::save).collect(Collectors.toSet());
         records.forEach(record -> log.info("record: {}", record.getStudent().getStudentId()));
+        attendanceSession.setSessionStatus(SessionStatus.closed);
+        attendanceSessionRepository.save(attendanceSession);
 
         return records.stream()
                 .map(record -> new AttendanceRecordDTO(
