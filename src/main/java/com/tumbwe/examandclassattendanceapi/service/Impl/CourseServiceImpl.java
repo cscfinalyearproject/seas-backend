@@ -42,26 +42,7 @@ public class CourseServiceImpl implements CourseService {
         }
          }
 
-    @Override
-    public EnrollmentResponse addStudentToCourse(EnrollmentDto enrollmentDto) {
-        Course course = courseRepository.findByCourseCode(enrollmentDto.getCourseCode()).orElseThrow(()
-                -> new ResourceNotFoundException("Course with course code: " + enrollmentDto.getCourseCode() + " not found"));
-        Student student = studentRepository.findById(enrollmentDto.getStudentId()).orElseThrow(()->
-                new ResourceNotFoundException("Student with id: "+ enrollmentDto.getStudentId() + " not found"));
-        if (course.getEnrolledStudents().contains(student))
-            throw new DataIntegrityViolationException("student with id :" + enrollmentDto.getStudentId() + " already enrolled in course");
-        course.getEnrolledStudents().add(student);
-        try {
-            Course savedCourse = courseRepository.save(course);
-            String message = "student added successfully to course";
-            return new EnrollmentResponse(student.getStudentId(), savedCourse.getCourseCode(), message);
-        }
-        catch (Exception e){
-            throw new InternalServerException(e.getMessage());
-        }
 
-
-    }
 
     @Override
     public List<CourseDto> getAllCourses() {
