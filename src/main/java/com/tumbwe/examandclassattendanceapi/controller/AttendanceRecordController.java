@@ -5,7 +5,7 @@ import com.tumbwe.examandclassattendanceapi.model.AttendanceRecord;
 import com.tumbwe.examandclassattendanceapi.model.AttendanceSessionInOut;
 import com.tumbwe.examandclassattendanceapi.model.AttendanceType;
 import com.tumbwe.examandclassattendanceapi.model.Student;
-import com.tumbwe.examandclassattendanceapi.request.AttendanceSessionIn;
+import com.tumbwe.examandclassattendanceapi.response.AttendanceRecordDTO;
 import com.tumbwe.examandclassattendanceapi.service.AttendanceRecordService;
 import com.tumbwe.examandclassattendanceapi.service.AttendanceSessionService;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +46,7 @@ public class AttendanceRecordController {
     public ResponseEntity<?> markAttendance(@RequestBody AttendanceSessionInOut attendanceSessionIn){
         Set<byte[]> studentFingerprintsSet = attendanceSessionIn.getStudentPrints();
         if (!studentFingerprintsSet.isEmpty()){
-         Set<AttendanceRecord> attendanceRecords = attendanceRecordService.addAttendanceRecord(attendanceSessionIn.getCourseCode(),
+         Set<AttendanceRecordDTO> attendanceRecords = attendanceRecordService.addAttendanceRecord(attendanceSessionIn.getCourseCode(),
                                                                                 attendanceSessionIn.getAttendanceType(),
                                                                                 studentFingerprintsSet);
          return ResponseEntity.ok(attendanceRecords);

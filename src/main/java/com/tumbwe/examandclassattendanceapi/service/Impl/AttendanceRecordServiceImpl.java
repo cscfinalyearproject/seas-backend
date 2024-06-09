@@ -1,19 +1,19 @@
 package com.tumbwe.examandclassattendanceapi.service.Impl;
 
 import com.tumbwe.examandclassattendanceapi.exception.InternalServerException;
+import com.tumbwe.examandclassattendanceapi.exception.ResourceAlreadyExistsException;
 import com.tumbwe.examandclassattendanceapi.exception.ResourceNotFoundException;
-import com.tumbwe.examandclassattendanceapi.model.AttendanceRecord;
-import com.tumbwe.examandclassattendanceapi.model.AttendanceType;
-import com.tumbwe.examandclassattendanceapi.model.Course;
-import com.tumbwe.examandclassattendanceapi.model.Student;
+import com.tumbwe.examandclassattendanceapi.model.*;
 import com.tumbwe.examandclassattendanceapi.repository.AttendanceRecordRepository;
-import com.tumbwe.examandclassattendanceapi.repository.CourseRepository;
+import com.tumbwe.examandclassattendanceapi.repository.AttendanceSessionRepository;
 import com.tumbwe.examandclassattendanceapi.repository.StudentRepository;
+import com.tumbwe.examandclassattendanceapi.response.AttendanceRecordDTO;
 import com.tumbwe.examandclassattendanceapi.service.AttendanceRecordService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,11 +23,15 @@ import java.util.stream.Collectors;
 public class AttendanceRecordServiceImpl implements AttendanceRecordService {
     private final AttendanceRecordRepository attendanceRecordRepository;
     private final StudentRepository studentRepository;
-    private final CourseRepository courseRepository;
+    private final AttendanceSessionRepository attendanceSessionRepository;
     @Override
-    public Set<AttendanceRecord> addAttendanceRecord(String courseCode, AttendanceType attendanceType, Set<byte[]> studentFingerprintsSet) {
-        Course course = courseRepository.findByCourseCode(courseCode)
-                                        .orElseThrow(() -> new InternalServerException("Error retrieving course"));
+    public Set<AttendanceRecordDTO> addAttendanceRecord(String courseCode, AttendanceType attendanceType, Set<byte[]> studentFingerprintsSet) {
+        LocalDate date = LocalDate.now();
+        AttendanceSession attendanceSession = attendanceSessionRepository.findByCourseCode(courseCode,attendanceType, date)
+                                        .orElseThrow(() -> new ResourceNotFoundException("Attendance session not found"));
+        if (attendanceSession.getSessionStatus() == SessionStatus.closed){
+            throw new ResourceAlreadyExistsException("Attendance session for Course with Course Code: " +courseCode + " already closed");
+        }
 
         Set<Student> presentStudents = studentFingerprintsSet
                 .stream()
@@ -44,10 +48,20 @@ public class AttendanceRecordServiceImpl implements AttendanceRecordService {
 
         Set<AttendanceRecord> records = presentStudents.stream()
                               .map(student -> {
-            return new AttendanceRecord(student, course, attendanceType);
+            return new AttendanceRecord(student, attendanceSession.getCourse(), attendanceType);
                               }
         ).map(attendanceRecordRepository::save).collect(Collectors.toSet());
         records.forEach(record -> log.info("record: {}", record.getStudent().getStudentId()));
-        return records;
+        attendanceSession.setSessionStatus(SessionStatus.closed);
+        attendanceSessionRepository.save(attendanceSession);
+
+        return records.stream()
+                .map(record -> new AttendanceRecordDTO(
+                        record.getStudent().getStudentId(),
+                        record.getCourse().getCourseCode(),// Assuming you have a timestamp field in AttendanceRecord
+                        record.getAttendanceType()
+                ))
+                .collect(Collectors.toSet());
+
     }
 }

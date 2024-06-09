@@ -17,5 +17,7 @@ public interface CourseRepository extends JpaRepository<Course, String> {
 
     @Query("SELECT c.enrolledStudents FROM Course c WHERE c.courseCode = :courseCode")
     Set<Student> findStudentsByCourseCode(@Param("courseCode") String courseCode);
+
+
 }
 

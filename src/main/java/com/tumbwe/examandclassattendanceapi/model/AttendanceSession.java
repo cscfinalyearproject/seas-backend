@@ -1,19 +1,16 @@
 package com.tumbwe.examandclassattendanceapi.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.EnableMBeanExport;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Data
 @NoArgsConstructor
-
 @Table(name = "attendance_sessions")
 public class AttendanceSession {
 
@@ -23,7 +20,11 @@ public class AttendanceSession {
     @ManyToOne
     @JoinColumn(name = "course_code")
     private Course course;
+    @Enumerated(EnumType.STRING)
     private AttendanceType attendanceType;
+
+    @Enumerated(EnumType.STRING)
+    private SessionStatus sessionStatus = SessionStatus.open;
     private LocalDate timeStamp;
 
     public AttendanceSession(Course course, AttendanceType attendanceType){
