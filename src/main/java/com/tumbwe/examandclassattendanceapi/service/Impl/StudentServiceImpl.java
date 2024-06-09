@@ -2,12 +2,15 @@ package com.tumbwe.examandclassattendanceapi.service.Impl;
 
 import com.tumbwe.examandclassattendanceapi.dto.StudentDto;
 import com.tumbwe.examandclassattendanceapi.exception.InternalServerException;
+import com.tumbwe.examandclassattendanceapi.exception.ResourceNotFoundException;
 import com.tumbwe.examandclassattendanceapi.model.Student;
 import com.tumbwe.examandclassattendanceapi.repository.StudentRepository;
 import com.tumbwe.examandclassattendanceapi.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,5 +31,13 @@ public class StudentServiceImpl implements StudentService {
                 }
         }
         else throw new DataIntegrityViolationException("Student with id: " + studentDto.getStudentId() + " already exists");
+    }
+
+    @Override
+    public List<Student> getAllStudents() {
+        List<Student> students = studentRepository.findAll();
+        if (students.isEmpty())
+            throw new ResourceNotFoundException("No Students exist in the database");
+        return students;
     }
 }
