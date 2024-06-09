@@ -21,10 +21,10 @@ public class StudentServiceImpl implements StudentService {
     public StudentDto addStudent(StudentDto studentDto) {
         if (!studentRepository.existsById(studentDto.getStudentId()))
         {
-            Student student = new Student(studentDto.getStudentId(), studentDto.getFingerprintTemplate());
+            Student student = new Student(studentDto.getStudentId(), studentDto.getFingerprintTemplate(), studentDto.getFullname());
                 try {
                     Student savedStudent = studentRepository.save(student);
-                    return new StudentDto(savedStudent.getStudentId(), studentDto.getFingerprintTemplate());
+                    return new StudentDto(savedStudent.getStudentId(), savedStudent.getFingerprintTemplate(),savedStudent.getFullName());
                 }
                 catch (Exception e){
                     throw new InternalServerException("Error saving student: " + e.getMessage());

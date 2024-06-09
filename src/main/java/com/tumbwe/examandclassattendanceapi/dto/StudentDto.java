@@ -8,4 +8,5 @@ import lombok.Data;
 public class StudentDto {
     private String studentId;
     private byte[] fingerprintTemplate;
+    private String fullname;
 }
