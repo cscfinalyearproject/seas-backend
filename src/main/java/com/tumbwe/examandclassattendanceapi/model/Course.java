@@ -3,7 +3,6 @@ package com.tumbwe.examandclassattendanceapi.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +11,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "courses")
 public class Course {
-
     @Id
     private String courseCode;
     private String courseName;

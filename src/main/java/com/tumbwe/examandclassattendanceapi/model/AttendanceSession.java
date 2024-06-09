@@ -11,7 +11,6 @@ import java.util.UUID;
 @Entity
 @Data
 @NoArgsConstructor
-
 @Table(name = "attendance_sessions")
 public class AttendanceSession {
 

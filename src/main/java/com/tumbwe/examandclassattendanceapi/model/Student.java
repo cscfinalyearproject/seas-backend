@@ -19,5 +19,6 @@ public class Student {
     @Id
     private String studentId;
     private byte[] fingerprintTemplate;
+    private String fullName;
 
 }
