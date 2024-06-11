@@ -12,6 +12,7 @@ import com.tumbwe.examandclassattendanceapi.repository.StudentRepository;
 import com.tumbwe.examandclassattendanceapi.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,6 +54,11 @@ public class CourseServiceImpl implements CourseService {
 
         else
             throw new ResourceNotFoundException("Courses not found");
+    }
+
+    @Override
+    public boolean existsByCourseCode(String courseCode) {
+        return courseRepository.existsById(courseCode);
     }
 
 

@@ -36,6 +36,14 @@ public class CourseController {
     }
     }
 
+    @GetMapping(path = "/is-available-course")
+    public ResponseEntity<?> isCourseAvailable(@RequestParam String courseCode){
+        try { return  ResponseEntity.status(HttpStatus.FOUND).body(courseService.existsByCourseCode(courseCode));}
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
+    }
+
 
 
 }
