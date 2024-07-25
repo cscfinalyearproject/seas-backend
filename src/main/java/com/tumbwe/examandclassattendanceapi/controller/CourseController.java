@@ -24,7 +24,6 @@ public class CourseController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
-
     @GetMapping(path = "/all-courses")
     public ResponseEntity<?> getAllCourses(){
        try {

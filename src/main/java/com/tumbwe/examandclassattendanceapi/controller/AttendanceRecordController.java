@@ -1,5 +1,6 @@
 package com.tumbwe.examandclassattendanceapi.controller;
 
+import com.tumbwe.examandclassattendanceapi.dto.StartSession;
 import com.tumbwe.examandclassattendanceapi.exception.ResourceNotFoundException;
 import com.tumbwe.examandclassattendanceapi.model.AttendanceRecord;
 import com.tumbwe.examandclassattendanceapi.model.AttendanceSessionInOut;
@@ -16,22 +17,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/api/v1/attendance")
+@RequestMapping("/api/v1/attendances")
 @RequiredArgsConstructor
 public class AttendanceRecordController {
 
     private final AttendanceSessionService attendanceSessionService;
     private final AttendanceRecordService attendanceRecordService;
 
-    @GetMapping("/hello")
-    public String hello(){
-        return "hello";
-    }
-
-    @PostMapping("/start")
-    public ResponseEntity<?> startAttendanceTaking(@RequestParam String courseCode, @RequestParam AttendanceType attendanceType){
+    @PostMapping("/start-session")
+    public ResponseEntity<?> startAttendanceTaking(@RequestBody StartSession in){
         try {
-            AttendanceSessionInOut response = attendanceSessionService.startSession(courseCode, attendanceType);
+            AttendanceSessionInOut response = attendanceSessionService.startSession(in);
             return ResponseEntity.ok(response);
         }
         catch (ResourceNotFoundException e){
@@ -44,14 +40,13 @@ public class AttendanceRecordController {
 
     @PostMapping("/mark-attendance")
     public ResponseEntity<?> markAttendance(@RequestBody AttendanceSessionInOut attendanceSessionIn){
-        Set<byte[]> studentFingerprintsSet = attendanceSessionIn.getStudentPrints();
-        if (!studentFingerprintsSet.isEmpty()){
-         Set<AttendanceRecordDTO> attendanceRecords = attendanceRecordService.addAttendanceRecord(attendanceSessionIn.getCourseCode(),
-                                                                                attendanceSessionIn.getAttendanceType(),
-                                                                                studentFingerprintsSet);
-         return ResponseEntity.ok(attendanceRecords);
+
+        try {
+          return  ResponseEntity.status(HttpStatus.CREATED).body(attendanceRecordService.addAttendanceRecord(attendanceSessionIn));
+
         }
-        else {
+
+        catch (Exception e){
             return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("Students absent");
         }
     }

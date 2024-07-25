@@ -14,6 +14,5 @@ public interface CourseService {
 
     List<CourseDto> getAllCourses();
 
-
     boolean existsByCourseCode(String courseCode);
 }
