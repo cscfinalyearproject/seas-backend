@@ -21,35 +21,22 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class AttendanceRecordServiceImpl implements AttendanceRecordService {
+
     private final AttendanceRecordRepository attendanceRecordRepository;
     private final StudentRepository studentRepository;
     private final AttendanceSessionRepository attendanceSessionRepository;
     @Override
-    public Set<AttendanceRecordDTO> addAttendanceRecord(String courseCode, AttendanceType attendanceType, Set<byte[]> studentFingerprintsSet) {
-        LocalDate date = LocalDate.now();
-        AttendanceSession attendanceSession = attendanceSessionRepository.findByCourseCode(courseCode,attendanceType, date)
-                                        .orElseThrow(() -> new ResourceNotFoundException("Attendance session not found"));
+    public Set<AttendanceRecordDTO> addAttendanceRecord(AttendanceSessionInOut inOut) {
+        AttendanceSession attendanceSession = attendanceSessionRepository.findById(inOut.getSession().getSessionId())
+                .orElseThrow(() -> new ResourceNotFoundException("Attendance session not found"));
         if (attendanceSession.getSessionStatus() == SessionStatus.closed){
-            throw new ResourceAlreadyExistsException("Attendance session for Course with Course Code: " +courseCode + " already closed");
+            throw new ResourceAlreadyExistsException("Attendance session for Course with Course Code: " +inOut.getSession().getCourseCode() + " already closed");
         }
 
-        Set<Student> presentStudents = studentFingerprintsSet
-                .stream()
-                .map(studentRepository::findByFingerprintTemplate)
-                .peek(student -> {
-                    if (student == null)
-                        throw new InternalServerException("Error retrieving student");
-                    else {
-                        log.info("student fingerTemplate {}", student.getFingerprintTemplate());
-                    }
 
-                })
-                .collect(Collectors.toSet());
-
-        Set<AttendanceRecord> records = presentStudents.stream()
-                              .map(student -> {
-            return new AttendanceRecord(student, attendanceSession.getCourse(), attendanceType);
-                              }
+        Set<AttendanceRecord> records = inOut.getStudents()
+                              .stream()
+                              .map(student -> new AttendanceRecord(student, attendanceSession.getCourse(), attendanceSession.getAttendanceType())
         ).map(attendanceRecordRepository::save).collect(Collectors.toSet());
         records.forEach(record -> log.info("record: {}", record.getStudent().getStudentId()));
         attendanceSession.setSessionStatus(SessionStatus.closed);
@@ -64,4 +51,6 @@ public class AttendanceRecordServiceImpl implements AttendanceRecordService {
                 .collect(Collectors.toSet());
 
     }
+
+
 }

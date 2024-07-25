@@ -1,5 +1,6 @@
 package com.tumbwe.examandclassattendanceapi.service.Impl;
 
+import com.tumbwe.examandclassattendanceapi.dto.StartSession;
 import com.tumbwe.examandclassattendanceapi.exception.ResourceNotFoundException;
 import com.tumbwe.examandclassattendanceapi.model.*;
 import com.tumbwe.examandclassattendanceapi.repository.AttendanceSessionRepository;
@@ -19,17 +20,16 @@ public class AttendanceSessionServiceImpl implements AttendanceSessionService {
     private final AttendanceSessionRepository attendanceSessionRepository;
     private final CourseRepository courseRepository;
     @Override
-    public AttendanceSessionInOut startSession(String courseCode, AttendanceType attendanceType) {
-        Course course = courseRepository.findByCourseCode(courseCode).orElseThrow(() -> new ResourceNotFoundException("Course not found exception"));
-        AttendanceSession attendanceSession = new AttendanceSession(course, attendanceType);
+    public AttendanceSessionInOut startSession(StartSession in) {
+        Course course = courseRepository.findByCourseCode(in.getCourseCode()).orElseThrow(() -> new ResourceNotFoundException("Course not found exception"));
+        AttendanceSession attendanceSession = new AttendanceSession(course, in.getType());
         attendanceSessionRepository.save(attendanceSession);
+        in.setSessionId(attendanceSession.getAttendanceSessionId());
 
-        Set<Student> students = courseRepository.findStudentsByCourseCode(courseCode);
+
+        Set<Student> students = courseRepository.findStudentsByCourseCode(course.getCourseCode());
         if (!students.isEmpty()){
-            Set<byte[]> studentFingerprintTemplates = students.stream()
-                                                              .map(Student::getFingerprintTemplate)
-                                                              .collect(Collectors.toSet());
-            return new AttendanceSessionInOut(courseCode, attendanceType, studentFingerprintTemplates);
+            return new AttendanceSessionInOut(in, students);
         }
         else {
             throw new ResourceNotFoundException("No Students enrolled to the course");

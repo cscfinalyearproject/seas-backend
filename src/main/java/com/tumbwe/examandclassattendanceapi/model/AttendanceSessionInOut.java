@@ -1,5 +1,6 @@
 package com.tumbwe.examandclassattendanceapi.model;
 
+import com.tumbwe.examandclassattendanceapi.dto.StartSession;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,15 +10,15 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 public class AttendanceSessionInOut {
-    private String courseCode;
-    private AttendanceType attendanceType;
-    private Set<byte[]> studentPrints;
+    private StartSession session;
+    private Set<Student> students;
     private LocalDate timeStamp;
 
-    public AttendanceSessionInOut(String courseCode, AttendanceType attendanceType, Set<byte[]> studentPrints) {
-        this.courseCode = courseCode;
-        this.attendanceType = attendanceType;
-        this.studentPrints = studentPrints;
+    public AttendanceSessionInOut(StartSession session, Set<Student> students) {
+        this.session = session;
+        this.students = students;
         this.timeStamp = LocalDate.now();
     }
+
+
 }
