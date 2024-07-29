@@ -85,7 +85,7 @@ Content-Type: application/json
 }
 
 ### add students
-POST http://51.20.113.87:8088/api/v1/student/add-student
+POST http://Self:8088/api/v1/students/add-student
 Content-Type: application/json
 
 {

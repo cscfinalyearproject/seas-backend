@@ -7,6 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class StudentDto {
     private String studentId;
-    private byte[] fingerprintTemplate;
+    private String fingerprintTemplate;
     private String fullname;
 }
