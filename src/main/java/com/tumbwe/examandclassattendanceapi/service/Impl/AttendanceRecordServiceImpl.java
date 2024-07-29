@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 public class AttendanceRecordServiceImpl implements AttendanceRecordService {
 
     private final AttendanceRecordRepository attendanceRecordRepository;
-    private final StudentRepository studentRepository;
     private final AttendanceSessionRepository attendanceSessionRepository;
     @Override
     public Set<AttendanceRecordDTO> addAttendanceRecord(AttendanceSessionInOut inOut) {
@@ -45,7 +44,7 @@ public class AttendanceRecordServiceImpl implements AttendanceRecordService {
         return records.stream()
                 .map(record -> new AttendanceRecordDTO(
                         record.getStudent().getStudentId(),
-                        record.getCourse().getCourseCode(),// Assuming you have a timestamp field in AttendanceRecord
+                        record.getCourse().getCourseCode(),
                         record.getAttendanceType()
                 ))
                 .collect(Collectors.toSet());
